@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopupdemo.fragment.AllAnimatorDemo;
 import com.lxj.xpopupdemo.fragment.BaseFragment;
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         },300);
 
         XPopup.setPrimaryColor(getResources().getColor(R.color.colorPrimary));
+//        XPopup.setAnimationDuration(1000);
 //        XPopup.setPrimaryColor(Color.RED);
-
     }
 
     private void callFragmentInit(int i){

@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
+            <Button
+                android:id="@+id/text"
                 android:text="测试多弹窗"
                 android:textSize="20sp"
                 android:padding="20dp"
@@ -22,6 +23,13 @@
                 android:layout_height="wrap_content" />
 
 
+            <EditText
+                android:id="@+id/et"
+                android:layout_marginLeft="10dp"
+                android:hint="测试联想搜索"
+                android:singleLine="true"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v4.widget.NestedScrollView>
 

@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
 import com.lxj.xpopup.animator.PopupAnimator;
@@ -25,7 +26,13 @@ import com.lxj.xpopup.util.XPopupUtils;
 public abstract class PartShadowPopupView extends AttachPopupView {
     public PartShadowPopupView(@NonNull Context context) {
         super(context);
-        defaultOffsetY = 0;
+    }
+
+    @Override
+    protected void initPopupContent() {
+        super.initPopupContent();
+        defaultOffsetY = popupInfo.offsetY == 0 ? XPopupUtils.dp2px(getContext(), 0) : popupInfo.offsetY;
+        defaultOffsetX = popupInfo.offsetX == 0 ? XPopupUtils.dp2px(getContext(), 0) : popupInfo.offsetX;
     }
 
     @Override
@@ -56,6 +63,8 @@ public abstract class PartShadowPopupView extends AttachPopupView {
             View implView = ((ViewGroup)getPopupContentView()).getChildAt(0);
             FrameLayout.LayoutParams implParams = (LayoutParams) implView.getLayoutParams();
             implParams.gravity = Gravity.BOTTOM;
+            if(getMaxHeight()!=0)
+                implParams.height = Math.min(implView.getMeasuredHeight(), getMaxHeight());
             implView.setLayoutParams(implParams);
 
         } else {
@@ -72,12 +81,12 @@ public abstract class PartShadowPopupView extends AttachPopupView {
             View implView = ((ViewGroup)getPopupContentView()).getChildAt(0);
             FrameLayout.LayoutParams implParams = (LayoutParams) implView.getLayoutParams();
             implParams.gravity = Gravity.TOP;
+            if(getMaxHeight()!=0)
+                implParams.height = Math.min(implView.getMeasuredHeight(), getMaxHeight());
             implView.setLayoutParams(implParams);
         }
         getPopupContentView().setLayoutParams(params);
 
-        attachPopupContainer.setCardBackgroundColor(Color.TRANSPARENT);
-        attachPopupContainer.setCardElevation(0);
         attachPopupContainer.setOnClickOutsideListener(new OnClickOutsideListener() {
             @Override
             public void onClickOutside() {
@@ -98,4 +107,5 @@ public abstract class PartShadowPopupView extends AttachPopupView {
         return new TranslateAnimator(getPopupImplView(), isShowUp ?
                 PopupAnimation.TranslateFromBottom: PopupAnimation.TranslateFromTop);
     }
+
 }
